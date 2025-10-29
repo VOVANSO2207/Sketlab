@@ -4,15 +4,31 @@ import { useRef, useState, useEffect } from 'react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { Award, BookOpen, Users, Star, Mail, Linkedin, GraduationCap, ChevronLeft, ChevronRight, X, Eye } from 'lucide-react';
 
+// Định nghĩa interface cho Instructor
+interface Instructor {
+  id: number;
+  name: string;
+  title: string;
+  role: string;
+  experience: string;
+  courses: number;
+  students: number;
+  rating: number;
+  specialties: string[];
+  bio: string;
+  email: string;
+  linkedin: string;
+  images: string[];
+}
+
 export function InstructorsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-
-  const [selectedInstructor, setSelectedInstructor] = useState(null);
+  const [selectedInstructor, setSelectedInstructor] = useState<Instructor | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const instructors = [
+  const instructors: Instructor[] = [
     {
       id: 1,
       name: 'Nguyễn Văn A',
@@ -95,7 +111,7 @@ export function InstructorsSection() {
     },
   ];
 
-  const openModal = (instructor) => {
+  const openModal = (instructor: Instructor) => {
     setSelectedInstructor(instructor);
     setCurrentImageIndex(0);
     setIsModalOpen(true);
@@ -114,7 +130,7 @@ export function InstructorsSection() {
   }, [selectedInstructor]);
 
   useEffect(() => {
-    const handleEsc = (e) => {
+    const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isModalOpen) {
         closeModal();
       }
@@ -192,10 +208,8 @@ export function InstructorsSection() {
                       className="w-full h-full object-cover"
                     />
                   </motion.div>
-
                   {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
                   {/* Hover Overlay */}
                   <motion.div
                     className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -203,7 +217,6 @@ export function InstructorsSection() {
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
                   />
-
                   {/* Rating Badge */}
                   <motion.div
                     className="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-black px-4 py-2 shadow-2xl flex items-center gap-1.5 rounded-full"
@@ -213,7 +226,6 @@ export function InstructorsSection() {
                     <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                     <span className="font-bold">{instructor.rating}</span>
                   </motion.div>
-
                   {/* Basic Info */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                     <motion.div
@@ -227,7 +239,6 @@ export function InstructorsSection() {
                     <h3 className="text-2xl mb-1 font-bold">{instructor.name}</h3>
                     <p className="text-sm opacity-90 font-light">{instructor.role}</p>
                   </div>
-
                   {/* Hover Teaser */}
                   <motion.div
                     className="absolute inset-0 p-6 flex flex-col justify-end text-white"
