@@ -153,7 +153,7 @@ export function TestimonialsSection() {
 
                     {/* Comment */}
                     <p className="text-gray-300 mb-8 leading-relaxed italic" style={{ fontWeight: 300 }}>
-                      "{testimonial.comment}"
+                      {testimonial.comment}
                     </p>
 
                     {/* Course Badge */}
